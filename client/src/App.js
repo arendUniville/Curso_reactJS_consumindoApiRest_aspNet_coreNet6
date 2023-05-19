@@ -1,31 +1,15 @@
-import React, { useState } from 'react';
-import Header from './Header'
+import React from 'react';
+
+import './global.css';
+
+import Login from './pages/Login';
 
 
 export default function App() {
 
-    //Array [value, changeValueFunction]
-
-    const [counter, setCounter ] = useState(0);
-
-
-    function increment()
-    {
-        setCounter(counter + 1);
-    }
-
     return (
 
-        <div>
-
-            <Header>
-                Counter: { counter }
-            </Header>
-
-            <button onClick={increment}>Add</button>
-
-        </div>
-
+        <Login/>
     );
 
 
