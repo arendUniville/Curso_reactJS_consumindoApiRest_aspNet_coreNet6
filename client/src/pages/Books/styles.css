@@ -76,9 +76,9 @@
                 background: transparent;
             }
 
-            .book-container ul li button:hover {
-                opacity: 0.8;            
-            }
+                .book-container ul li button:hover {
+                    opacity: 0.8;
+                }
 
             .book-container ul li strong {
                 display: block;
@@ -90,12 +90,12 @@
                 margin-top: 32px;
             }
 
-            .book-container ul li p{
+            .book-container ul li p {
                 color: #737380;
                 line-height: 21px;
                 font-size: 16px;
             }
-            
-            .book-container ul li button + button{
+
+            .book-container ul li button + button {
                 top: 50px;
             }

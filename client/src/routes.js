@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Book from './pages/Book';
+import Books from './pages/Books';
 
 export default function Rotas() {
     return (
@@ -10,7 +10,7 @@ export default function Rotas() {
             <Routes>
 
                 <Route path="/" exact element={<Login />} />
-                <Route path="/book" element={<Book />} />
+                <Route path="/books" element={<Books />} /> 
 
             </Routes>
 

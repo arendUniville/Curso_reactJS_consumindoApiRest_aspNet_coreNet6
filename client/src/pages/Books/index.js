@@ -8,7 +8,7 @@ import logoImage from '../../assets/logo.svg';
 
 
 
-export default function Book()
+export default function Books()
 {
 
     return (
