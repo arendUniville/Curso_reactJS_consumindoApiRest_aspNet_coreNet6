@@ -23,7 +23,7 @@ export default function Login() {
 					<input placeholder="Username" />
 					<input type="password" placeholder="Password" />
 
-					<button type="submit">Login</button>
+					<button type="submit" className="button">Login</button>
 
 
 				</form>
