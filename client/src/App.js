@@ -5,7 +5,9 @@ import Header from './Header'
 export default function App() {
     return (
 
-        <Header title="Client REST Udemy"/>
+        <Header>
+            Client REST Udemy - Properties
+        </Header>
 
     );
 }
