@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import api from '../../services/api';
 
@@ -12,6 +12,7 @@ import logoImage from '../../assets/logo.svg';
 
 export default function NewBook() {
 
+    const [id, setId] = useState(null);
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
     const [launchDate, setLaunchDate] = useState('');
@@ -23,6 +24,53 @@ export default function NewBook() {
     const navigator = useNavigate();
 
 
+    const accessToken = localStorage.getItem('accessToken');
+
+
+    //Header de authorization
+    const authorization = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    }
+
+
+    //Verifica se é um new book ou um edit book
+    useEffect(() => {
+
+        if (bookId == '0') return;
+        else loadBook();
+
+    }, bookId);
+
+
+    //Carrega um book caso seja uma edição
+    async function loadBook() {
+
+        try {
+
+            const response = await api.get(`api/book/v1/${bookId}`, authorization);
+
+
+            let adjustedDate = response.data.launchDate.split("T", 10)[0];
+
+            setId(response.data.id);
+            setTitle(response.data.title);
+            setAuthor(response.data.author);
+            setPrice(response.data.price);
+            setLaunchDate(adjustedDate);
+
+        } catch (error) {
+            alert('Error recovering book! Try again.');
+
+            navigator('/books');
+
+        }
+
+    }
+
+
+    //Novo book
     async function createNewBook(e) {
         e.preventDefault();
 
@@ -34,8 +82,6 @@ export default function NewBook() {
 
         }
 
-
-        const accessToken = localStorage.getItem('accessToken');
 
         console.log(data);
 
