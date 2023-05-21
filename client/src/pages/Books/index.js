@@ -62,6 +62,19 @@ export default function Books() {
     }
 
 
+    //Edit book
+    async function editBook(id) {
+
+        try {
+
+            navigate(`/books/new/${id}`);
+
+
+        } catch (error) { alert('Edit book failed! Try again.') };
+
+    }
+ 
+
     //Delete book
     async function deleteBook(id) {
 
@@ -95,7 +108,7 @@ export default function Books() {
                 <span>Welcome, <strong>{userName.toLowerCase()}</strong>!</span>
 
 
-                <Link className="button" to="new">Add new book</Link>
+                <Link className="button" to="new/0">Add new book</Link>
                 <button onClick={logout} type="button">
 
                     <FiPower size={18} color="#251FC5" />
@@ -130,7 +143,7 @@ export default function Books() {
 
 
 
-                        <button type="button">
+                        <button onClick={ () => editBook(book.id) } type="button">
                             <FiEdit size={20} color="#251FC5" />
                         </button>
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 
 import './styles.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import logoImage from '../../assets/logo.svg';
@@ -17,6 +17,8 @@ export default function NewBook() {
     const [launchDate, setLaunchDate] = useState('');
     const [price, setPrice] = useState('');
 
+
+    const { bookId } = useParams();
 
     const navigator = useNavigate();
 
@@ -71,7 +73,7 @@ export default function NewBook() {
 
                     <h1>Add new book</h1>
 
-                    <p>Enter the book information and click on 'Add'</p>
+                    <p>Enter the book information and click on 'Add' #### ${bookId}</p>
 
 
                     <Link className="back-link" to="/books">
