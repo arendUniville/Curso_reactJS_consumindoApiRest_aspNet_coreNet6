@@ -22,7 +22,7 @@ export default function Books()
                 <span>Welcome, <strong>Arend</strong>!</span>
 
 
-                <Link className="button" to="book/new">Add new book</Link>
+                <Link className="button" to="new">Add new book</Link>
                 <button type="button">
 
                     <FiPower size={18} color="#251FC5" />

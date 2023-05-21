@@ -5,8 +5,8 @@
     "\\src",
     "\\src\\pages",
     "\\src\\pages\\Books",
-    "\\src\\pages\\login"
+    "\\src\\pages\\Login"
   ],
-  "SelectedNode": "\\src\\pages\\Books\\index.js",
+  "SelectedNode": "\\src\\App.js",
   "PreviewInSolutionExplorer": false
 }
