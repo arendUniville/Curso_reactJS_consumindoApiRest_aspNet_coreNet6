@@ -12,7 +12,7 @@ export default function NewBook() {
 
         <div className="new-book-container">
 
-            <div className="content">
+            <div className="content">   
 
                 <section className="form">
 

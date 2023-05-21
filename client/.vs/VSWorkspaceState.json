@@ -3,10 +3,12 @@
     "",
     "\\public",
     "\\src",
+    "\\src\\assets",
     "\\src\\pages",
     "\\src\\pages\\Books",
-    "\\src\\pages\\Login"
+    "\\src\\pages\\Login",
+    "\\src\\pages\\NewBook"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\pages\\NewBook\\index.js",
   "PreviewInSolutionExplorer": false
 }
