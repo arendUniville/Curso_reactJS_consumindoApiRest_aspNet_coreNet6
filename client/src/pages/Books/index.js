@@ -15,6 +15,8 @@ export default function Books() {
 
     const [books, setBooks] = useState([]);
 
+    const [page, setPage] = useState(1);
+
 
     const userName = localStorage.getItem('userName');
     const accessToken = localStorage.getItem('accessToken');
@@ -24,20 +26,30 @@ export default function Books() {
 
 
 
+    //Header de authorization
+    const authorization = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    };
+
+
     //Listar books
     useEffect(() => {
-
-        api.get('api/Book/v1/asc/20/1', {
-
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-
-            }
-        }).then(response => {
-            setBooks(response.data.list)
-        })
-
+        fetchMoreBooks();
     }, [accessToken]);
+
+
+
+    //Trazer mais livros
+    async function fetchMoreBooks() {
+
+        const response = await api.get(`api/Book/v1/asc/4/${page}`, authorization);
+
+        setBooks([...books, ...response.data.list]);
+        setPage(page + 1);
+
+    }
 
 
     //Logout system
@@ -45,13 +57,7 @@ export default function Books() {
 
         try {
 
-            await api.get(`api/auth/v1/revoke`, {
-
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-
-                }
-            });
+            await api.get(`api/auth/v1/revoke`, authorization);
 
             localStorage.clear();
 
@@ -73,21 +79,14 @@ export default function Books() {
         } catch (error) { alert('Edit book failed! Try again.') };
 
     }
- 
+
 
     //Delete book
     async function deleteBook(id) {
 
-        try
-        {
+        try {
 
-            await api.delete(`api/Book/v1/${id}`, {
-
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-
-                }
-            });
+            await api.delete(`api/Book/v1/${id}`, authorization);
 
             setBooks(books.filter(book => book.id !== id));
 
@@ -143,11 +142,11 @@ export default function Books() {
 
 
 
-                        <button onClick={ () => editBook(book.id) } type="button">
+                        <button onClick={() => editBook(book.id)} type="button">
                             <FiEdit size={20} color="#251FC5" />
                         </button>
 
-                        <button onClick={() => deleteBook(book.id) } type="button">
+                        <button onClick={() => deleteBook(book.id)} type="button">
                             <FiTrash2 size={20} color="#251FC5" />
                         </button>
 
@@ -157,6 +156,9 @@ export default function Books() {
                 ))}
 
             </ul>
+
+
+            <button className="button" onClick={fetchMoreBooks} type="button">Load more</button>
 
 
         </div>
