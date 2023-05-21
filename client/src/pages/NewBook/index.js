@@ -38,7 +38,7 @@ export default function NewBook() {
     //Verifica se é um new book ou um edit book
     useEffect(() => {
 
-        if (bookId == '0') return;
+        if (bookId === '0') return;
         else loadBook();
 
     }, bookId);
@@ -71,7 +71,7 @@ export default function NewBook() {
 
 
     //Novo book
-    async function createNewBook(e) {
+    async function saveOrUpdate(e) {
         e.preventDefault();
 
         const data = {
@@ -87,13 +87,18 @@ export default function NewBook() {
 
         try {
 
-            await api.post('api/Book/v1', data, {
+            if (bookId === '0') {
 
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
+                await api.post('api/Book/v1', data, authorization);
 
-                }
-            });
+            } else {
+
+                data.id = id;
+                await api.put('api/Book/v1', data, authorization);
+
+            }
+
+            
 
         }
         catch (error) {
@@ -117,9 +122,9 @@ export default function NewBook() {
 
                     <img scr={logoImage} alt="Erudio" />
 
-                    <h1>Add new book</h1>
+                    <h1>{bookId === '0' ? 'Add new' : 'Update'} book</h1>
 
-                    <p>Enter the book information and click on 'Add' #### ${bookId}</p>
+                    <p>Enter the book information and click on to <b>{bookId === '0' ? `add.` : `update book id #${bookId}`}</b></p>
 
 
                     <Link className="back-link" to="/books">
@@ -130,7 +135,7 @@ export default function NewBook() {
                 </section>
 
 
-                <form onSubmit={createNewBook}>
+                <form onSubmit={saveOrUpdate}>
 
                     <input
                         placeholder="Title"
@@ -157,7 +162,7 @@ export default function NewBook() {
                     />
 
 
-                    <button className="button" type="submit">Add</button>
+                    <button className="button" type="submit">{ bookId === '0' ? 'Add' : 'Update' }</button>
 
                 </form>
 
