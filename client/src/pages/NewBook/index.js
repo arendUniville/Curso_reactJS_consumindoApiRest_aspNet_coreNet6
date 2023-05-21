@@ -1,18 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import api from '../../services/api';
+
 import './styles.css';
-import { Link } from 'react-router-dom';
-import { FiArrowLeft} from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
 
 import logoImage from '../../assets/logo.svg';
 
 
 
 export default function NewBook() {
+
+    const [author, setAuthor] = useState('');
+    const [title, setTitle] = useState('');
+    const [launchDate, setLaunchDate] = useState('');
+    const [price, setPrice] = useState('');
+
+
+    const navigator = useNavigate();
+
+
+    async function createNewBook(e) {
+        e.preventDefault();
+
+        const data = {
+            title,
+            author,
+            launchDate,
+            price,
+
+        }
+
+
+        const accessToken = localStorage.getItem('accessToken');
+
+        console.log(data);
+
+        try {
+
+            await api.post('api/Book/v1', data, {
+
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+
+                }
+            });
+
+        }
+        catch (error) {
+            alert('Error while recoding Book! Try again.');
+
+        }
+
+        navigator('/books');
+
+    }
+
+
+
     return (
 
         <div className="new-book-container">
 
-            <div className="content">   
+            <div className="content">
 
                 <section className="form">
 
@@ -31,12 +82,31 @@ export default function NewBook() {
                 </section>
 
 
-                <form>
+                <form onSubmit={createNewBook}>
 
-                    <input placeholder="Title" />
-                    <input placeholder="Author" />
-                    <input type="date" />
-                    <input placeholder="Price" />
+                    <input
+                        placeholder="Title"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                    />
+
+                    <input
+                        placeholder="Author"
+                        value={author}
+                        onChange={e => setAuthor(e.target.value)}
+                    />
+
+                    <input
+                        type="date"
+                        value={launchDate}
+                        onChange={e => setLaunchDate(e.target.value)}
+                    />
+
+                    <input
+                        placeholder="Price"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                    />
 
 
                     <button className="button" type="submit">Add</button>
@@ -48,5 +118,5 @@ export default function NewBook() {
 
         </div>
 
-        );
+    );
 }
